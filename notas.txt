@@ -1,0 +1,23 @@
+1- navigation
+	containers, components, poner las rutas correctas
+
+2- login
+	adding axios, redux, firebase, formularios
+
+3- posts-list
+	axios, redux
+
+
+
+containers or screens:
+	Auth: login or signup
+	post-list
+	post-detail
+	post-new/edit
+
+components:
+	post-item
+	comment-item
+	aviso
+	loader
+	modales
