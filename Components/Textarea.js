@@ -1,13 +1,11 @@
 import React from 'react';
-import { TextInput, View, Text, StyleSheet} from 'react-native';
+import {TextInput, View, Text, StyleSheet} from 'react-native';
 
-const Input = ({label, value, onChangeText, config}) => {
-  const {inputStyle, labelStyle, containerStyle, containerFila} = styles;
-//sigue arreglando el problema de flexbox
-//el flex lo da demanera vectical
-  return (<View style={containerStyle} >
-              <Text style={labelStyle} >{label}</Text>
-              <View style={containerFila}>
+const Textarea = ({label, value, onChangeText, config}) => {
+	const {inputStyle, labelStyle, containerStyle, containerFila} = styles;
+	return(<View style={containerStyle}>
+			<Text style={labelStyle} >{label}</Text>
+			<View style={containerFila}>
                 <TextInput
                   {...config}
                   autoCorrect={false}
@@ -16,8 +14,9 @@ const Input = ({label, value, onChangeText, config}) => {
                   style = {inputStyle}
                 />
               </View>
-            </View>);
+		</View>);
 }
+
 const styles = StyleSheet.create({
   inputStyle: {
     color: '#000',
@@ -31,14 +30,17 @@ const styles = StyleSheet.create({
   },
   containerFila: {
     flexDirection: 'row',
-    flex: 1
+    flex: 7,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
   },
   containerStyle: {
-    height: 60,
+    height: 200,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-start'
   }
 });
 
-export default Input;
+
+export default Textarea;

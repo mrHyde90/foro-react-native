@@ -8,6 +8,18 @@ import PostDetailScreen from './Screens/PostDetailScreen';
 import PostEditScreen from './Screens/PostEditScreen';
 
 export default class App extends React.Component {
+  componentWillMount(){
+    // Initialize Firebase
+      var config = {
+      apiKey: "AIzaSyDW5xw0dw7l81njYuHUjWtWzi_g0mhKOFo",
+      authDomain: "foro-d1373.firebaseapp.com",
+      databaseURL: "https://foro-d1373.firebaseio.com",
+      projectId: "foro-d1373",
+      storageBucket: "foro-d1373.appspot.com",
+      messagingSenderId: "243322805160"
+    };
+    firebase.initializeApp(config);
+  } 
 
   render() {
 
