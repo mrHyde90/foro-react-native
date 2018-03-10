@@ -2,10 +2,18 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import CardSection from '../Components/CardSection';
 import {Card, Button} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {loginUser} from '../store/actions'
 import Input from '../Components/Input';
 //pon el password de manera clasica
 //pasita a pasito suave suavecito
 class AuthScreen extends Component {
+	componentDidUpdate() {
+		console.log("adentro: " + this.props.isAuthenticated);
+		if(this.props.isAuthenticated) {
+  			this.props.navigation.navigate("PostList");
+  		}
+	}
 
 	state = {
 		controls: {
@@ -39,8 +47,8 @@ class AuthScreen extends Component {
         for (let formElementIdentifier in this.state.controls) {
             formData[formElementIdentifier] = this.state.controls[formElementIdentifier].value;
         }
-
-        console.log(formData);
+        sino = true;
+        this.props.loginUser({sino});
     }
 
     //checar el error aqui
@@ -88,9 +96,21 @@ class AuthScreen extends Component {
 	}
 
 	render() {
+		let errorMessage = null;
+		if(this.props.error) {
+			errorMessage = <Text>{this.props.error}</Text>
+		}
+
+		let loader = <Button
+						onPress={this.userHandler}
+  						title='Create User' />;
+  		if(this.props.loading) {
+  			loader = <Text>loading</Text>
+  		}
 
 		return(
 			<Card title="Create User">
+					{errorMessage}
 				<CardSection>
 					<Input 
 						label={this.state.controls["username"].label}
@@ -114,12 +134,22 @@ class AuthScreen extends Component {
 						config={this.state.controls["email"].config}
 						onChangeText={this.inputEmailHandler}/>
 				</CardSection>
-				<Button
-						onPress={this.userHandler}
-  						title='Create User' />
+				{loader}
 			</Card>
 		);
 	}
 }
+///
 
-export default AuthScreen;
+const mapStateToProps = ({auth}) => {
+	const {user, error, loading} = auth;
+
+	return { 
+		user, 
+		error, 
+		loading,
+		isAuthenticated: user !== null
+	};
+};
+
+export default connect(mapStateToProps, {loginUser})(AuthScreen);
