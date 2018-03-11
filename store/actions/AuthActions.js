@@ -18,26 +18,36 @@ const loginUserFail = (error) => {
 
 //loginUserSuccess
 const loginUserSuccess = (user) => {
+	console.log(user);
 	return {
-		type: LOGIN_USER_SUCCESS,
-		user: user
+			type: LOGIN_USER_SUCCESS,
+			user: user
 	};
+
 }
 
 //loginUser
-export const loginUser = ({sino}) => {
+export const loginUser = ({email, password}) => {
+	console.log(email);
+	console.log(password);
 	return dispatch => {
 		dispatch(loginStart());
-		setTimeout(() => { 
+		firebase.auth().signInWithEmailAndPassword(email, password)
+		.then(user => dispatch(loginUserSuccess(user)))
+		.catch(() => {
+			firebase.auth().createUserWithEmailAndPassword(email, password)
+			.then(user => dispatch(loginUserSuccess(user)))
+			.catch(error => dispatch(loginUserFail(error.message)))
+		});
+	}
+};
+
+/*
+	setTimeout(() => { 
 			if(sino) {
 				dispatch(loginUserSuccess("Usuario elegido"));
 			} else {
 				dispatch(loginUserFail("Sorry but this user cant login"));
 			}
 		}, 1000);
-	}
-};
-
-/*
-	
 */

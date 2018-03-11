@@ -13,7 +13,7 @@ class AuthScreen extends Component {
 		if(this.props.isAuthenticated) {
   			this.props.navigation.navigate("PostList");
   		}
-	}
+	} 
 
 	state = {
 		controls: {
@@ -47,8 +47,9 @@ class AuthScreen extends Component {
         for (let formElementIdentifier in this.state.controls) {
             formData[formElementIdentifier] = this.state.controls[formElementIdentifier].value;
         }
-        sino = true;
-        this.props.loginUser({sino});
+        console.log(formData);
+
+        this.props.loginUser({...formData});
     }
 
     //checar el error aqui

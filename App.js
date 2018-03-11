@@ -44,6 +44,12 @@ export default class App extends React.Component {
     const MainNavigator = TabNavigator({
       auth: {screen: AuthScreen},
       Post: {screen: PostNavigator}
+    }, {
+      backBehavior:'none',
+      navigationOptions: {
+        tabBarVisible: false,
+        swipeEnabled: false
+      }, 
     });
 
     return (
